@@ -9,16 +9,16 @@ router.get('/', (req, res) => {
     Post.findAll({
         attributes: [
             'id',
-            'post_text',
+            'postText',
             'title',
-            'created_at'
+            'createdAt'
         ],
-        order: [['created_at', 'DESC']],
+        order: [['createdAt', 'DESC']],
         include: [
             // include the Comment model here:
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['id', 'commentText', 'postId', 'userId', 'createdAt'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -44,14 +44,14 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            'post_text',
+            'postText',
             'title',
-            'created_at'
+            'createdAt'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['id', 'commentText', 'postId', 'userId', 'createdAt'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -79,9 +79,9 @@ router.get('/:id', (req, res) => {
 router.post('/', withAuth, (req, res) => {
     Post.create({
         title: req.body.title,
-        post_text: req.body.post_text,
-        //user_id: req.body.user_id //Get user id from api post body
-        user_id: req.session.user_id // Get user id from session variables
+        postText: req.body.postText,
+        //userId: req.body.userId //Get user id from api post body
+        userId: req.session.userId // Get user id from session variables
     })
         .then(dbPostData => res.json(dbPostData))
         .catch(err => {
@@ -94,7 +94,7 @@ router.put('/:id', withAuth, (req, res) => {
     Post.update(
         {
             title: req.body.title,
-            post_text: req.body.post_text
+            postText: req.body.postText
         },
         {
             where: {

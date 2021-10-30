@@ -21,9 +21,9 @@ router.get('/:id', (req, res) => {
                 model: Post,
                 attributes: [
                     'id',
-                    'post_text',
+                    'postText',
                     'title',
-                    'created_at'
+                    'createdAt'
                 ],
                 include: {
                     model: User,
@@ -53,10 +53,10 @@ router.post('/', withAuth, (req, res) => {
     // check the session
     if (req.session) {
         Comment.create({
-            comment_text: req.body.comment_text,
-            post_id: req.body.post_id,
-            //user_id: req.body.user_id //Get user id from api post body
-            user_id: req.session.user_id // Get user id from session variables
+            commentText: req.body.commentText,
+            postId: req.body.postId,
+            //userId: req.body.userId //Get user id from api post body
+            userId: req.session.userId // Get user id from session variables
 
         })
             .then(dbCommentData => res.json(dbCommentData))

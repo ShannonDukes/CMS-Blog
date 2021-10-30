@@ -10,18 +10,18 @@ router.get('/', withAuth, (req, res) => {
     Post.findAll({
         where: {
             // use the ID from the session
-            user_id: req.session.user_id
+            userId: req.session.userId
         },
         attributes: [
             'id',
-            'post_text',
+            'postText',
             'title',
-            'created_at'
+            'createdAt'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['id', 'commentText', 'postId', 'userId', 'createdAt'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -48,14 +48,14 @@ router.get('/edit/:id', withAuth, (req, res) => {
     Post.findByPk(req.params.id, {
         attributes: [
             'id',
-            'post_text',
+            'postText',
             'title',
-            'created_at'
+            'createdAt'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['id', 'commentText', 'postId', 'userId', 'createdAt'],
                 include: {
                     model: User,
                     attributes: ['username']
