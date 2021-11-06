@@ -73,6 +73,7 @@ router.post('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+    console.log(req.body);
     User.findOne({
         where: {
             email: req.body.email
@@ -84,7 +85,7 @@ router.post('/login', (req, res) => {
         }
 
         const validPassword = dbUserData.checkPassword(req.body.password);
-
+        console.log(validPassword);
         if (!validPassword) {
             res.status(400).json({ message: 'Incorrect password!' });
             return;
@@ -95,7 +96,7 @@ router.post('/login', (req, res) => {
             req.session.userId = dbUserData.id;
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
-
+            console.log(req.session);
             res.json({ user: dbUserData, message: 'You are now logged in!' });
         });
     });
